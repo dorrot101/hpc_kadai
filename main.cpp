@@ -771,12 +771,11 @@ int main(const int argc, const char** argv)
 		mat_rand(a_8u, 0, 127);//128は128+128=256でunsigned charがオーバーフロー
 		mat_rand(b_8u, 0, 127);//128は128+128=256でunsigned charがオーバーフロー
 
-		// ?????
 		Mat_8S a_8s(a_8u);
 		Mat_8S b_8s(b_8u);
 		Mat_8S ret_8s(row, col);
-		mat_rand(a_8s, 0, 63);//64は64+64=128でcharがオーバーフロー
-		mat_rand(b_8s, 0, 63);//64は64+64=128でcharがオーバーフロー
+		mat_rand(a_8u, 0, 63);//64は64+64=128でcharがオーバーフロー
+		mat_rand(b_8u, 0, 63);//64は64+64=128でcharがオーバーフロー
 
 		Mat_16S a_16s(a_8u);
 		Mat_16S b_16s(b_8u);
@@ -907,7 +906,9 @@ int main(const int argc, const char** argv)
 
 		//int
 		Mat_32S x_32s(row, col);
+		mat_rand(x_32s, 1,100);
 		Mat_32S ret_32s(row, col);
+		mat_zero(ret_32s);
 
 
 		CalcTime t;
@@ -920,6 +921,7 @@ int main(const int argc, const char** argv)
 			for (int i = 0; i < size; i++)
 			{
 				//XXXXXXXX ret_32s.data[i]=xxxx
+				ret_32s.data[i] = x_32s.data[i] * 2; 
 			}
 			t.end();
 		}
@@ -936,6 +938,7 @@ int main(const int argc, const char** argv)
 			for (int i = 0; i < size; i++)
 			{
 				//XXXXXXXX ret_32s.data[i] =xxx
+				ret_32s.data[i] = x_32s.data[i] * 2.0f; 
 			}
 			t.end();
 		}
@@ -950,6 +953,7 @@ int main(const int argc, const char** argv)
 			for (int i = 0; i < size; i++)
 			{
 				//XXXXXXXX ret_32s.data[i] =xxx
+				ret_32s.data[i] = x_32s.data[i] << 1; 
 			}
 			t.end();
 		}
@@ -966,6 +970,7 @@ int main(const int argc, const char** argv)
 			for (int i = 0; i < size; i++)
 			{
 				//XXXXXXXX ret_32s.data[i] =xxx
+				ret_32s.data[i] = x_32s.data[i] / 2; 
 			}
 			t.end();
 		}
@@ -980,6 +985,7 @@ int main(const int argc, const char** argv)
 			for (int i = 0; i < size; i++)
 			{
 				//XXXXXXXX ret_32s.data[i] =xxx
+				ret_32s.data[i] = x_32s.data[i] / 2.0; 
 			}
 			t.end();
 		}
@@ -994,6 +1000,7 @@ int main(const int argc, const char** argv)
 			for (int i = 0; i < size; i++)
 			{
 				//XXXXXXXX ret_32s.data[i] =xxx
+				ret_32s.data[i] = x_32s.data[i] * 0.5; 
 			}
 			t.end();
 		}
@@ -1008,6 +1015,7 @@ int main(const int argc, const char** argv)
 			for (int i = 0; i < size; i++)
 			{
 				//XXXXXXXX ret_32s.data[i] =xxx
+				ret_32s.data[i] = x_32s.data[i] >> 1; 
 			}
 			t.end();
 		}
@@ -1029,7 +1037,7 @@ int main(const int argc, const char** argv)
 			const int size = ret_32f.cols * ret_32f.rows;
 			for (int i = 0; i < size; i++)
 			{
-				//XXXXXXXX
+				ret_32f.data[i] = x_32f.data[i] / 2.0f; 
 			}
 			t.end();
 		}
@@ -1043,7 +1051,7 @@ int main(const int argc, const char** argv)
 			const int size = ret_32f.cols * ret_32f.rows;
 			for (int i = 0; i < size; i++)
 			{
-				//XXXXXXXX
+				ret_32f.data[i] = x_32f.data[i] * 0.5f; 
 			}
 			t.end();
 		}
